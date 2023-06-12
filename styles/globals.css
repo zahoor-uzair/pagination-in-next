@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(223, 223, 223);
+}
+
+@media screen and (width> 370px) {
+  .card {
+    transition: all 0.6s;
+  }
+  .card:hover {
+    box-shadow: 0 0 10px rgb(49, 49, 49);
+    transform: scale(1.01);
+  }
+}
