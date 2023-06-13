@@ -18,7 +18,7 @@ export default function MediaCard({ id, title, body, url }: Props) {
           <CardMedia sx={{ height: 200 }} image={url} title="green iguana" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {title.slice(0, 10)}
+              {title.slice(0, 20)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {body.slice(0, 100)}
