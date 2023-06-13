@@ -42,7 +42,8 @@ export default function Paginations() {
 
   const handlePageChange = (event: any, page: number) => {
     setCurrentPage(page);
-    router.push(`/product?page=${page}`, undefined, { shallow: true });
+    router.push(`/product?page=${page}`);
+    window.scrollTo(0, 0); // Scroll to the top of the page
   };
 
   useEffect(() => {
