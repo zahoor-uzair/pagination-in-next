@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import Button from "@/Customframework/button";
 import Link from "next/link";
 
 export default function Home() {
@@ -6,14 +6,10 @@ export default function Home() {
     <>
       <main>
         <Link href={"/product"}>
-          <Button sx={{ margin: 2 }} variant="contained" color="secondary">
-            Products
-          </Button>
+          <Button style={{ margin: 6 }}>Products</Button>
         </Link>
         <Link href={"/common"}>
-          <Button sx={{ margin: 2 }} variant="contained" color="secondary">
-            Common
-          </Button>
+          <Button style={{ margin: 6 }}>Common Components</Button>
         </Link>
       </main>
     </>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Box, Pagination, Typography, Button, Divider } from "@mui/material";
+import { Box, Pagination, Typography, Divider } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import MediaCard from "@/components/card";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Card from "@/Customframework/card";
+import Button from "@/Customframework/button";
 // import toast, { Toaster } from "react-hot-toast";
 
 const PAGE_SIZE = 15; // Number of data items per page
@@ -75,9 +76,8 @@ export default function Paginations() {
       {/* <Toaster /> */}
       <Link href={"/"}>
         <Button
-          sx={{ marginX: 2, marginY: 1 }}
-          variant="contained"
-          color="secondary"
+          className="primary"
+          style={{ margin: "8px", width: 80, height: 40 }}
         >
           <ArrowBackIcon />
         </Button>
@@ -96,7 +96,7 @@ export default function Paginations() {
       >
         {currentData.map((item: ApiData) => (
           <Box key={item.id}>
-            <MediaCard
+            <Card
               id={item.id}
               title={item.title}
               body={item.description}
