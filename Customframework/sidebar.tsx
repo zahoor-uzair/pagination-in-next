@@ -1,28 +1,37 @@
 import React, { useState } from "react";
+import { ContactPage as ContactPageIcon } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
 
 interface MenuItem {
   label: string;
+  icon?: any;
   subMenuItems?: string[];
 }
 
-const Sidebar: React.FC = () => {
+const Sidebar = ({ url }: { url: string }) => {
   const menuItems: MenuItem[] = [
     {
-      label: "Menu 1",
+      label: "Home",
+      icon: <HomeIcon />,
       subMenuItems: ["Sub Menu 1", "Sub Menu 2", "Sub Menu 3"],
     },
     {
-      label: "Menu 2",
+      label: "Contact",
+      icon: <ContactPageIcon />,
       subMenuItems: ["Sub Menu 4", "Sub Menu 5", "Sub Menu 6"],
     },
     {
-      label: "Menu 3",
+      label: "About",
+      icon: <InfoIcon />,
     },
     {
       label: "Menu 4",
+      icon: <ContactPageIcon />,
     },
     {
       label: "Menu 5",
+      icon: <ContactPageIcon />,
       subMenuItems: ["Sub Menu 7", "Sub Menu 8", "Sub Menu 9"],
     },
   ];
@@ -35,6 +44,13 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="sidebar">
+      <div className="profile">
+        <div className="navbar-avatar">
+          <img src={url} alt="Avatar" className="navbar-avatar-image" />
+          <h2>Uzair Zahoor</h2>
+          <h5>Software Engineer</h5>
+        </div>
+      </div>
       <ul className="menu">
         {menuItems.map((menuItem, index) => (
           <React.Fragment key={index}>
@@ -42,7 +58,8 @@ const Sidebar: React.FC = () => {
               className={`menu-item ${activeMenu === index ? "active" : ""}`}
               onClick={() => handleMenuClick(index)}
             >
-              {menuItem.label}
+              <span> {menuItem.icon}</span>
+              <span>{menuItem.label}</span>
             </li>
             {activeMenu === index && menuItem.subMenuItems && (
               <ul className="sub-menu">

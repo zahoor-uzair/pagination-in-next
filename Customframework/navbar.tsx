@@ -70,17 +70,16 @@ const Navbar = ({ url, loggedIn, setLoggedIn }: any) => {
                 style={{ marginBottom: 12 }}
               />
               <Button type="submit">Sign In</Button>
+              <Button
+                style={{
+                  marginTop: 10,
+                  backgroundColor: "gray",
+                }}
+                onClick={handleModalClose}
+              >
+                Close
+              </Button>
             </form>
-            <Button
-              style={{
-                marginTop: 10,
-                backgroundColor: "gray",
-                padding: 10,
-              }}
-              onClick={handleModalClose}
-            >
-              Close
-            </Button>
           </div>
         </div>
       )}
