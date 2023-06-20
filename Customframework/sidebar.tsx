@@ -1,72 +1,82 @@
 import React, { useState } from "react";
-import { ContactPage as ContactPageIcon } from "@mui/icons-material";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
+
+import CloseIcon from "@mui/icons-material/Close";
+
+import Tooltip from "./tooltip";
 
 interface MenuItem {
   label: string;
-  icon?: any;
+  icon: React.ReactElement;
   subMenuItems?: string[];
 }
 
-const Sidebar = ({ url }: { url: string }) => {
-  const menuItems: MenuItem[] = [
-    {
-      label: "Home",
-      icon: <HomeIcon />,
-      subMenuItems: ["Sub Menu 1", "Sub Menu 2", "Sub Menu 3"],
-    },
-    {
-      label: "Contact",
-      icon: <ContactPageIcon />,
-      subMenuItems: ["Sub Menu 4", "Sub Menu 5", "Sub Menu 6"],
-    },
-    {
-      label: "About",
-      icon: <InfoIcon />,
-    },
-    {
-      label: "Menu 4",
-      icon: <ContactPageIcon />,
-    },
-    {
-      label: "Menu 5",
-      icon: <ContactPageIcon />,
-      subMenuItems: ["Sub Menu 7", "Sub Menu 8", "Sub Menu 9"],
-    },
-  ];
+interface SidebarProps {
+  url: string;
+  hideBar: (width: string) => void;
+  menuItems: MenuItem[];
+}
 
+interface SidebarItemProps {
+  item: MenuItem;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  item,
+  isActive,
+  onClick,
+}) => (
+  <li className={`menu-item ${isActive ? "active" : ""}`} onClick={onClick}>
+    <span>{item.icon}</span>
+    <span>{item.label}</span>
+  </li>
+);
+
+const SubMenuItem: React.FC<{ item: string }> = ({ item }) => (
+  <li className="sub-menu-item">{item}</li>
+);
+
+const Sidebar: React.FC<SidebarProps> = ({ url, hideBar, menuItems }) => {
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
 
   const handleMenuClick = (menuIndex: number) => {
     setActiveMenu((prevMenu) => (prevMenu === menuIndex ? null : menuIndex));
   };
 
+  const handleSideBar = () => {
+    hideBar("0px");
+  };
+
   return (
     <div className="sidebar">
       <div className="profile">
-        <div className="navbar-avatar">
-          <img src={url} alt="Avatar" className="navbar-avatar-image" />
-          <h2>Uzair Zahoor</h2>
-          <h5>Software Engineer</h5>
+        <div
+          onClick={handleSideBar}
+          style={{ position: "absolute", top: 7, right: 8, cursor: "pointer" }}
+        >
+          <Tooltip title="Close">
+            <CloseIcon />
+          </Tooltip>
         </div>
+        <div>
+          <img src={url} alt="Avatar" />
+        </div>
+        <h2>Uzair Zahoor</h2>
+        <h5>Software Engineer</h5>
       </div>
       <ul className="menu">
         {menuItems.map((menuItem, index) => (
           <React.Fragment key={index}>
-            <li
-              className={`menu-item ${activeMenu === index ? "active" : ""}`}
+            <SidebarItem
+              item={menuItem}
+              isActive={activeMenu === index}
               onClick={() => handleMenuClick(index)}
-            >
-              <span> {menuItem.icon}</span>
-              <span>{menuItem.label}</span>
-            </li>
+            />
             {activeMenu === index && menuItem.subMenuItems && (
               <ul className="sub-menu">
                 {menuItem.subMenuItems.map((subMenuItem, subIndex) => (
-                  <li className="sub-menu-item" key={subIndex}>
-                    {subMenuItem}
-                  </li>
+                  <SubMenuItem item={subMenuItem} key={subIndex} />
                 ))}
               </ul>
             )}

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 interface TooltipProps {
   title: string;
+  color?: string;
   children: React.ReactNode;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ title, children }) => {
+const Tooltip: React.FC<TooltipProps> = ({ title, color, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -22,7 +23,11 @@ const Tooltip: React.FC<TooltipProps> = ({ title, children }) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {isOpen && <div className="tooltip-content">{title}</div>}
+      {isOpen && (
+        <div className={`tooltip-content ${color || "primaryclr"}`}>
+          {title}
+        </div>
+      )}
     </div>
   );
 };

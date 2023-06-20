@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, ChangeEvent } from "react";
 import InputField from "@/Customframework/textfield";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Card from "@/Customframework/card";
@@ -13,80 +13,57 @@ import Alert from "@/Customframework/alert";
 import Accordion from "@/Customframework/accordion";
 import Stepper from "@/Customframework/stepper";
 import Tooltip from "@/Customframework/tooltip";
+import {
+  menuItems,
+  options,
+  steps,
+  body,
+  url,
+} from "@/Customframework/utils/menudata";
+import Select from "@/Customframework/select";
 
-const steps = [
-  {
-    label: "1",
-    content: (
-      <div>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente porro
-        sint doloribus sequi eligendi obcaecati, rerum, quisquam ipsam eum hic
-        sed excepturi saepe ipsum laboriosam officia aut, minus consectetur
-        repellat!
-      </div>
-    ),
-  },
-  {
-    label: "2",
-    content: (
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure numquam
-        tenetur nobis distinctio, quisquam, reiciendis nam nisi laboriosam sit
-        quos quae dolore ut ipsam eos consequatur itaque atque ipsa repudiandae.
-      </div>
-    ),
-  },
-  {
-    label: "3",
-    content: (
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ex
-        sed harum doloremque, id quae non, accusantium alias labore, dignissimos
-        saepe eveniet quaerat nostrum. Ab laudantium fugit in eligendi earum.
-      </div>
-    ),
-  },
-  {
-    label: "4",
-    content: (
-      <div>
-        met, consectetur adipisicing elit. Aspernatur ex sed harum doloremque,
-        id quae non, accusantium alias labore, dignissimos saepe eveniet quaerat
-        nostrum. Ab lLorem ipsum dolor sit aaudantium fugit in eligendi earum.
-      </div>
-    ),
-  },
-];
-const body =
-  "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat reiciendis eos, reprehenderit, soluta maxime labore assumenda, velit dolores aliquid corporis accusantium! Recusandae nulla modi dicta, tempora impedit beatae eveniet atque.";
-const url =
-  "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80";
 const Common = () => {
   const [value, setValue] = useState<string>("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [modal, setModal] = useState(false);
+  const [sideBarWidth, setSideBarWidth] = useState("0px");
   return (
     <>
-      <Navbar url={url} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <Navbar
+        url={url}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        showBar={setSideBarWidth}
+      />
       {loggedIn && (
         <Box sx={{ display: "flex" }}>
           <Box
             sx={{
-              width: "260px",
+              width: sideBarWidth,
               position: "fixed",
               top: 60,
               height: "calc(100vh - 60px)",
               overflowY: "auto",
+              transitionProperty: "all",
+              transitionDuration: "0.4s",
+              transitionTimingFunction: "ease-in-out",
             }}
           >
-            <Sidebar url={url} />
+            <Sidebar
+              url={url}
+              hideBar={setSideBarWidth}
+              menuItems={menuItems}
+            />
           </Box>
           <Box
             sx={{
-              marginLeft: "260px",
+              marginLeft: sideBarWidth,
               width: "100%",
               height: "calc(100vh - 60px)",
               overflow: "auto",
+              transitionProperty: "all",
+              transitionDuration: "0.4s",
+              transitionTimingFunction: "ease-in-out",
             }}
           >
             <Link href={"/"}>
@@ -97,22 +74,26 @@ const Common = () => {
               </Tooltip>
             </Link>
             {/* modal */}
-            <Box sx={{ margin: 3 }}>
+            <Box sx={{ margin: 3, width: "50%" }}>
               <Button className="primary" onClick={() => setModal(true)}>
                 Modal
               </Button>
               {modal && <Modal close={setModal} />}
             </Box>
+            {/* select */}
+            <Box sx={{ margin: 2, width: "50%" }}>
+              <Select options={options} />
+            </Box>
             {/* accordion */}
-            <Box sx={{ margin: 3, width: 600 }}>
+            <Box sx={{ margin: 2, width: "92%" }}>
               <Accordion title="Title" content={body} />
             </Box>
             {/* stepper */}
-            <Box sx={{ margin: 3, width: 600 }}>
+            <Box sx={{ margin: 3, width: "92%" }}>
               <Stepper steps={steps} />
             </Box>
             {/* alert */}
-            <Box sx={{ margin: 3, width: 600 }}>
+            <Box sx={{ margin: 3, width: "92%" }}>
               <Alert severity="info">Info</Alert>
               <Alert severity="success">Succes</Alert>
               <Alert severity="error">Error</Alert>
@@ -121,7 +102,7 @@ const Common = () => {
             <Box sx={{ width: 350, margin: 3 }}>
               <Card title="Card Title" body={body} url={url} />
             </Box>
-            <Box sx={{ width: 350, margin: 3 }}>
+            <Box sx={{ width: "50%", margin: 3 }}>
               <InputField
                 style={{ height: "45px" }}
                 placeholder="Enter Text"
@@ -131,14 +112,20 @@ const Common = () => {
                 }
               />
             </Box>
-            <Box sx={{ width: 350, margin: 3 }}>
-              <Button style={{ margin: "8px" }}>Button</Button>
-              <Button className="danger" style={{ margin: "8px" }}>
-                Button
-              </Button>
-              <Button className="success" style={{ margin: "8px" }}>
-                Button
-              </Button>
+            <Box sx={{ width: "50%", margin: 3 }}>
+              <Tooltip title="Primary">
+                <Button style={{ marginLeft: "8px" }}>Button</Button>
+              </Tooltip>
+              <Tooltip title="Danger" color="danger">
+                <Button className="danger" style={{ marginLeft: "8px" }}>
+                  Button
+                </Button>
+              </Tooltip>
+              <Tooltip title="Success" color="success">
+                <Button className="success" style={{ marginLeft: "8px" }}>
+                  Button
+                </Button>
+              </Tooltip>
             </Box>
           </Box>
         </Box>

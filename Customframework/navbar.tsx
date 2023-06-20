@@ -1,45 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import InputField from "./textfield";
 import Button from "./button";
+import Tooltip from "./tooltip";
+import MenuIcon from "@mui/icons-material/Menu";
+import Snackbar from "./snackbar";
 
-const Navbar = ({ url, loggedIn, setLoggedIn }: any) => {
+interface NavbarProps {
+  url: string;
+  loggedIn: boolean;
+  setLoggedIn: (loggedIn: boolean) => void;
+  showBar: (width: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+  url,
+  loggedIn,
+  setLoggedIn,
+  showBar,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [loggedIn, setLoggedIn] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleModalClose = () => {
+  const handleModalClose = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     setLoggedIn(false);
     setShowMenu(false);
-    console.log("Logged out");
-  };
+  }, [setLoggedIn]);
+
+  const handleSideBar = useCallback(() => {
+    showBar("260px");
+  }, [showBar]);
 
   return (
     <nav className="navbar">
       {loggedIn && (
-        <div className="navbar-avatar">
-          <img
-            src={url}
-            alt="Avatar"
-            className="navbar-avatar-image"
-            onClick={() => setShowMenu(!showMenu)}
-          />
-          {showMenu && (
-            <div className="opions-menu">
-              <ul>
-                <li onClick={handleLogout}>Log out</li>
-                <li>Settings</li>
-              </ul>
-            </div>
-          )}
-        </div>
+        <>
+          <div onClick={handleSideBar}>
+            <Tooltip title="menu">
+              <MenuIcon sx={{ color: "white", cursor: "pointer" }} />
+            </Tooltip>
+          </div>
+          <div className="navbar-avatar">
+            <Tooltip title="Click">
+              <img
+                src={url}
+                alt="Avatar"
+                className="navbar-avatar-image"
+                onClick={() => setShowMenu(!showMenu)}
+              />
+            </Tooltip>
+            {showMenu && (
+              <>
+                <div className="opions-menu">
+                  <ul>
+                    <li onClick={handleLogout}>Log out</li>
+                    <li>Settings</li>
+                  </ul>
+                </div>
+                <Snackbar message="You Wanna Log out!" />
+              </>
+            )}
+          </div>
+          <Snackbar message="Hello World How Are You?" />
+        </>
       )}
       <div className="navbar-options">
         {!loggedIn && (
