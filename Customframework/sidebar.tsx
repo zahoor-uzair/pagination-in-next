@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-
 import CloseIcon from "@mui/icons-material/Close";
-
 import Tooltip from "./tooltip";
-
 interface MenuItem {
   label: string;
   icon: React.ReactElement;
   subMenuItems?: string[];
 }
-
 interface SidebarProps {
   url: string;
   hideBar: (width: string) => void;

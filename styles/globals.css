@@ -156,8 +156,18 @@ input.InputFieldWrapper::selection {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
+.card-img-outer {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
 .card-img {
   width: 100%;
+  transform-origin: center;
+  transition: transform 0.4s ease-in-out;
+}
+.card-img:hover {
+  transform: scale(1.7);
 }
 .card-title {
   padding: 10px 16px 0px 16px;
@@ -556,4 +566,129 @@ input.InputFieldWrapper::selection {
 
 .snackbar.open {
   opacity: 2;
+}
+
+.carousel-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-container {
+  position: relative;
+  width: 100%; /* Adjust the width to fit your design */
+  height: 70vh; /* Adjust the height to fit your design */
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.slide-title {
+  position: absolute;
+  font-size: 50px;
+  top: 25%;
+  left: 15%;
+  color: rgb(248, 246, 246);
+  text-shadow: 2px 2px 2px #646262;
+}
+.slide-desc {
+  font-size: 25px;
+  position: absolute;
+  width: 320px;
+  top: 40%;
+  left: 15%;
+  color: rgb(248, 246, 246);
+  text-shadow: 2px 2px 2px #646262;
+}
+.next-prev {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  outline: none;
+  z-index: 5;
+}
+.prev {
+  left: 8px;
+}
+.next {
+  right: 8px;
+}
+
+/* pagination */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0;
+}
+.pagination-button {
+  padding: 10px 14px;
+  color: white;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  margin: 0px 5px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  overflow: hidden;
+}
+.pagination-button:hover {
+  background-color: var(--primary-color-hover);
+}
+.pagination-button.disabled {
+  cursor: not-allowed;
+  color: var(--primary-color);
+  background-color: var(--primary-color-focus);
+}
+.pagination-pages {
+  display: flex;
+}
+.pagination-page {
+  padding: 10px 12px;
+  background-color: #f0f0f0;
+  margin: 0px 3px;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  overflow: hidden;
+}
+.dots {
+  padding-top: 5px;
+  padding-left: 3px;
+  letter-spacing: 4px;
+  font-weight: 900;
+  color: var(--primary-color);
+}
+.pagination-page:hover {
+  background-color: var(--primary-color-hover);
+}
+.pagination-page.active {
+  color: var(--primary-color);
+  background-color: var(--primary-color-focus);
 }

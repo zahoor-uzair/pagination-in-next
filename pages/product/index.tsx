@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Box, Pagination, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Card from "@/Customframework/card";
 import Button from "@/Customframework/button";
+import Pagination from "@/Customframework/pagination";
 // import toast, { Toaster } from "react-hot-toast";
 
 const PAGE_SIZE = 15; // Number of data items per page
@@ -41,8 +42,9 @@ export default function Paginations() {
   const endIndex = startIndex + PAGE_SIZE;
   const currentData = data?.slice(startIndex, endIndex);
 
-  const handlePageChange = (event: any, page: number) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    console.log("parent", page);
     router.push(`/product?page=${page}`);
     window.scrollTo(0, 0); // Scroll to the top of the page
   };
@@ -82,7 +84,6 @@ export default function Paginations() {
           <ArrowBackIcon />
         </Button>
       </Link>
-
       <Box
         sx={{
           width: "100%",
@@ -107,19 +108,9 @@ export default function Paginations() {
       </Box>
       <Divider />
       <Pagination
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginY: 2,
-        }}
-        count={totalPages}
-        page={currentPage}
-        onChange={handlePageChange}
-        variant="outlined"
-        shape="rounded"
-        color="secondary"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
     </>
   );

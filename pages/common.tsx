@@ -21,6 +21,25 @@ import {
   url,
 } from "@/Customframework/utils/menudata";
 import Select from "@/Customframework/select";
+import CarouselSlider from "@/Customframework/slider";
+import Pagination from "@/Customframework/pagination";
+const slides = [
+  {
+    src: "https://img.freepik.com/premium-photo/beautiful-mountain-range-reflects-tranquil-water-generative-ai_188544-9117.jpg?w=2000",
+    title: "hjwekhywevy",
+    desc: "wkhcbwebiud ydwqekbyewg hdbvqwekudeg",
+  },
+  {
+    src: "https://wallpaperaccess.com/full/8354413.jpg",
+    title: "uhduwedbweh",
+    desc: "hdbvqwekudeg wkhcbwebiud ydwqekbyewg ",
+  },
+  {
+    src: "https://s1.picswalls.com/wallpapers/2014/08/08/beautiful-house-high-quality-wallpaper_015601810_146.jpg",
+    title: "jwhduehiuy",
+    desc: "  ydwqekbyewg wkhcbwebiud hdbvqwekudeg",
+  },
+];
 
 const Common = () => {
   const [value, setValue] = useState<string>("");
@@ -73,6 +92,21 @@ const Common = () => {
                 </Button>
               </Tooltip>
             </Link>
+            {/* slider */}
+            <Box sx={{ margin: 3, width: "60%" }}>
+              <CarouselSlider slides={slides} />
+            </Box>
+            {/* pagination */}
+            <Box sx={{ margin: 3, width: "80%" }}>
+              <Pagination
+                totalPages={5}
+                currentPage={3}
+                onPageChange={() => {
+                  console.log("hello");
+                }}
+              />
+            </Box>
+
             {/* modal */}
             <Box sx={{ margin: 3, width: "50%" }}>
               <Button className="primary" onClick={() => setModal(true)}>
